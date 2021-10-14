@@ -1,4 +1,4 @@
-id: "community-base"
+id: "community_base"
 apiVersion: "1"
 version: "2"
 description: "A base bundle including allowed community (tier 3) plugins via the Plugin Catalog."

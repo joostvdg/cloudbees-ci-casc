@@ -1,8 +1,8 @@
-id: "community-all"
+id: "community_all"
 apiVersion: "1"
 version: "3"
 description: "A bundle using all the community (tier 3) plugins that are allowed"
-parent: "community-base"
+parent: "community_base"
 availabilityPattern: ".*"
 plugins:
   - "plugins.yaml"
