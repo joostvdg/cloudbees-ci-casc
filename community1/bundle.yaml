@@ -1,9 +1,9 @@
 apiVersion: "1"
-version: "4"
-id: "git-bundle-community-1-1"
+version: "1.0"
+id: "community1"
 description: "Shared Bundle"
 jcasc:
-  - "jenkins/"
+  - "jenkins/jenkins.yaml"
 plugins:
   - "plugins.yaml"
 catalog:

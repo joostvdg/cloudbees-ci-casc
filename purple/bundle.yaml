@@ -1,10 +1,10 @@
 id: "git-bundle-mc21"
-id: "git-bundle-purple-1"
+id: "purple"
 apiVersion: "1"
-version: "3"
+version: "1.0"
 description: "A simple bundle that sets up a master with the pipeline template catalog"
 parent: "community2"
 jcasc:
   - "jenkins.yaml"
 items:
-  - "items/"
+  - "items/pipeline-example.yaml"
