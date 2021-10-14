@@ -134,3 +134,21 @@ Limited to the most up to date bundles.
     ├── plugin-catalog.yaml
     └── plugins.yaml
 ```
+
+#### Bundle YAML Equivalent
+
+```yaml
+apiVersion: "1"
+version: "4"
+id: "shared"
+description: "Shared Bundle"
+availabilityPattern: ".*"
+jcasc:
+  - "jenkins/"
+plugins:
+  - "plugins.yaml"
+plugins:
+  - "plugins.yaml"
+catalog:
+  - "plugin-catalog.yaml"
+```
