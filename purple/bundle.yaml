@@ -5,6 +5,6 @@ description: "A bundle for Controller mc-purple"
 parent: "communityall"
 availabilityPattern: "mc-purple"
 jcasc:
-  - "jenkins/"
+  - "jenkins.yaml"
 items:
   - "items/"

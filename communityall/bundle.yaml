@@ -5,6 +5,6 @@ description: "A bundle using all the community (tier 3) plugins that are allowed
 parent: "communitybase"
 availabilityPattern: ".*"
 jcasc:
-  - "jenkins/"
+  - "jenkins.yaml"
 plugins:
   - "plugins.yaml"
