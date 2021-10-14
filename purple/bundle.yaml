@@ -1,9 +1,8 @@
-id: "git-bundle-purple"
+id: "purple"
 apiVersion: "1"
-version: "3"
+version: "1"
 description: "A bundle for Controller mc-purple"
-parent: "communityall"
-availabilityPattern: "mc-purple"
+parent: "community-all"
 jcasc:
   - "jenkins.yaml"
 items:
