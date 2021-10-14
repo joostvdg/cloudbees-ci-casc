@@ -1,0 +1,17 @@
+unclassified:      
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      name: "jpl-core"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              remote: "https://github.com/joostvdg/jpl-core.git"
+    - defaultVersion: "master"
+      name: "jpl-podtemplates"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              remote: "https://github.com/joostvdg/jpl-podtemplates.git" 

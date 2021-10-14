@@ -1,0 +1,18 @@
+kube:
+  podTemplatesConfiguration:
+    templates:
+    - containers:
+      - args: "9999999"
+        command: "sleep"
+        image: "maven:3.8.3-openjdk-17"
+        livenessProbe:
+          failureThreshold: 0
+          initialDelaySeconds: 0
+          periodSeconds: 0
+          successThreshold: 0
+          timeoutSeconds: 0
+        name: "maven-jdk17"
+        workingDir: "/home/jenkins/agent"
+      id: "d7015244-4592-4dea-8a91-1b574afa2bdd"
+      name: "maven-jdk17"
+      yamlMergeStrategy: "override"

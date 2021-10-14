@@ -1,0 +1,8 @@
+id: "community-all"
+apiVersion: "1"
+version: "2"
+description: "A bundle for Controller mc-purple"
+parent: "community-all"
+availabilityPattern: "mc-purple"
+items:
+  - "items/"

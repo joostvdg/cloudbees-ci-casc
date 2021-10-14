@@ -1,0 +1,18 @@
+kube:
+  podTemplatesConfiguration:
+    templates:
+    - containers:
+      - args: "9999999"
+        command: "sleep"
+        image: "golang:1.17.2-bullseye"
+        livenessProbe:
+          failureThreshold: 0
+          initialDelaySeconds: 0
+          periodSeconds: 0
+          successThreshold: 0
+          timeoutSeconds: 0
+        name: "golang"
+        workingDir: "/home/jenkins/agent"
+      id: "d7015296-4592-4dea-8a91-1b574afa2bdd"
+      name: "go"
+      yamlMergeStrategy: "override"

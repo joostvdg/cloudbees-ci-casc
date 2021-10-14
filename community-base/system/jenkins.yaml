@@ -1,0 +1,17 @@
+jenkins:
+  systemMessage: "CloudBees CI configured using CasC."
+  agentProtocols:
+  - "Diagnostic-Ping"
+  - "JNLP4-connect"
+  - "OperationsCenter2"
+  - "Ping"
+  authorizationStrategy: "cloudBeesRoleBasedAccessControl"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  disableRememberMe: false
+  numExecutors: 0
+  securityRealm: "operationsCenter"
+unclassified:
+  usageStatisticsCloudBees:
+    usageStatisticsCollected: true

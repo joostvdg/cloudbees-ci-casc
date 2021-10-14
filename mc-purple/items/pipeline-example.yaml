@@ -1,0 +1,24 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+
+items:
+- concurrentBuild: true
+  kind: pipeline
+  displayName: parallel-sequential-test
+  resumeBlocked: false
+  name: parallel-sequential-test
+  description: 'Parallel Sequential Test (see: https://joostvdg.github.io/jenkins-pipeline/jenkins-parallel-pipeline/#sequential-with-optional-reusable-pods)'
+  definition:
+    cpsScmFlowDefinition:
+      scriptPath: pipeline-examples/parallel-sequential.groovy
+      scm:
+        gitSCM:
+          userRemoteConfigs:
+          - userRemoteConfig:
+              url: https://github.com/joostvdg/jenkins-examples.git
+          branches:
+          - branchSpec:
+              name: '*/master'
+      lightweight: true
+  disabled: false
