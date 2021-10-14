@@ -110,16 +110,27 @@ Limited to the most up to date bundles.
 
 ```bash
 .
-├── README.md
-├── casc-for-oc
-│   ├── README.md
-│   ├── casc-oc-config-map.yaml
-│   └── helm-values.yaml
-├── mc1
+├── community-all (extends community-base)
+│   ├── bundle.yaml
+│   └── plugins.yaml
+├── community-base
+│   ├── bundle.yaml
+│   ├── plugin-catalog.yaml
+│   ├── plugins.yaml
+│   └── system
+│       ├── jenkins.yaml
+│       ├── podtemplate-golang.yaml
+│       ├── podtemplate-maven-jdk17.yaml
+│       └── shared-libraries.yaml
+├── mc-purple (extends community all)
+│   ├── bundle.yaml
+│   └── items
+│       └── pipeline-example.yaml
+├── mc1 (extends shared)
 │   ├── bundle.yaml
 │   ├── items.yaml
 │   └── jenkins.yaml
-├── mc21
+├── mc21 (extends mc1)
 │   ├── bundle.yaml
 │   ├── jenkins.yaml
 │   ├── plugin-catalog.yaml
@@ -127,7 +138,7 @@ Limited to the most up to date bundles.
 └── shared
     ├── bundle.yaml
     ├── jenkins
-    │   ├── jenkins.yaml
+    │   ├── main.yaml
     │   ├── podtemplate-golang.yaml
     │   ├── podtemplate-maven-jdk17.yaml
     │   └── shared-libraries.yaml
