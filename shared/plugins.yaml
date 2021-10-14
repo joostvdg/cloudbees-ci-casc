@@ -3,6 +3,7 @@ plugins:
 - {id: cloudbees-casc-api}
 - {id: workflow-job}
 - {id: workflow-multibranch}
+- {id: workflow-cps-global-lib} 
 - {id: git}
 - {id: git-client}
 - {id: git-server}
@@ -11,7 +12,6 @@ plugins:
 - {id: github-branch-source}
 - {id: github-organization-folder}
 - {id: pipeline-model-definition}
-- {id: workflow-cps-global-lib} 
 - {id: pipeline-graph-analysis} 
 - {id: pipeline-rest-api} 
 - {id: cloudbees-prometheus}
