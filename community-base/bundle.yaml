@@ -5,6 +5,9 @@ description: "A base bundle including allowed community (tier 3) plugins via the
 plugins:
   - "plugins.yaml"
 jcasc:
-  - "system/"
+  - "system/jenkins.yaml"
+  - "jensystemkins/podtemplate-golang.yaml"
+  - "system/podtemplate-maven-jdk17.yaml" 
+  - "system/shared-libraries.yaml"
 catalog:
   - "plugin-catalog.yaml"
