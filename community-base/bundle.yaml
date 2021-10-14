@@ -1,6 +1,6 @@
 id: "community-base"
 apiVersion: "1"
-version: "1"
+version: "2"
 description: "A base bundle including allowed community (tier 3) plugins via the Plugin Catalog."
 jcasc:
   - "system/"

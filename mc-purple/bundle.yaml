@@ -1,6 +1,6 @@
 id: "mc-purple"
 apiVersion: "1"
-version: "2"
+version: "3"
 description: "A bundle for Controller mc-purple"
 parent: "community-all"
 availabilityPattern: "mc-purple"
