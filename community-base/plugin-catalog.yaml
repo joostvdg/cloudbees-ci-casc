@@ -14,4 +14,5 @@ configurations:
     manage-permission: {version: '1.0.1'}
     extended-read-permission: {version: '3.2'}
     pipeline-utility-steps: {version: '2.10'}
+    pipeline-graph-view: {version: '46.vedbf23da719f'}
 
