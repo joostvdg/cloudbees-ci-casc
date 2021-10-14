@@ -1,9 +1,3 @@
-id: "bundle-1"
-version: "1"
-apiVersion: "1"
-description: "My CloudBees Configuration as Code (CasC) bundle"
-parent: "bundle-global"
-
 id: "community-all"
 version: "1"
 apiVersion: "1"
@@ -13,3 +7,5 @@ plugins:
   - "plugins.yaml"
 jcasc:
   - "jenkins.yaml"
+catalog:
+  - "plugin-catalog.yaml"
