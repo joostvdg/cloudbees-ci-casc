@@ -19,9 +19,9 @@ These Bundles are:
 * install a git client on Operations Center
     * for example: `github-branch-source`
 * create a Freestyle job
-    * checks out repository
-    * copies files to `${JENKINS_HOME}/jcasc-bundles-store`
-* create a Master with a naming matching a bundle
+    * check out from your repository with the casc Bundles
+    * use the `Synchronize bundles from workspace with internal storage` build step
+* create a Controller and select an available Bundle
 
 ## Update Bundle Configuration
 
@@ -33,14 +33,75 @@ You do this, by going to the following URL `<masterUrl>/core-casc-export`.
 
 ## Freestyle Job
 
-URL to checkout: `https://github.com/joostvdg/jenkins-examples.git`
+URL to checkout: `https://github.com/joostvdg/cloudbees-ci-casc.git`
+Use the `Synchronize bundles from workspace with internal storage` build step.
 
+Note: this only works if the Bundles are at the top level
 
+![CasC Sync Step](casc-sync-step-example.png)
+
+### CasC YAML
+
+```YAML
+- kind: freeStyle
+  displayName: casc-sync-new
+  name: casc-sync-new
+  disabled: false
+  description: 'My CasC Bundle Synchronization job'
+  concurrentBuild: false
+  builders:
+  - casCBundlesSyncBuildStep: {}
+  blockBuildWhenUpstreamBuilding: false
+  blockBuildWhenDownstreamBuilding: false
+  scm:
+    gitSCM:
+      userRemoteConfigs:
+      - userRemoteConfig:
+          url: https://github.com/joostvdg/cloudbees-ci-casc.git
+      branches:
+      - branchSpec:
+          name: '*/main'
+  scmCheckoutStrategy:
+    standard: {}
+```
 
 ### XML
 
 ```xml
-
+<project>
+<description/>
+<keepDependencies>false</keepDependencies>
+<properties/>
+<scm class="hudson.plugins.git.GitSCM" plugin="git@4.8.3">
+<configVersion>2</configVersion>
+<userRemoteConfigs>
+<hudson.plugins.git.UserRemoteConfig>
+<url>https://github.com/joostvdg/cloudbees-ci-casc.git</url>
+</hudson.plugins.git.UserRemoteConfig>
+</userRemoteConfigs>
+<branches>
+<hudson.plugins.git.BranchSpec>
+<name>*/main</name>
+</hudson.plugins.git.BranchSpec>
+</branches>
+<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+<submoduleCfg class="empty-list"/>
+<extensions/>
+</scm>
+<canRoam>true</canRoam>
+<disabled>false</disabled>
+<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+<triggers/>
+<concurrentBuild>false</concurrentBuild>
+<builders>
+<com.cloudbees.casc.jenkins.server.CasCBundlesSyncBuildStep plugin="cloudbees-casc-server@1.29">
+<purgeDeleted>true</purgeDeleted>
+</com.cloudbees.casc.jenkins.server.CasCBundlesSyncBuildStep>
+</builders>
+<publishers/>
+<buildWrappers/>
+</project>
 ```
 
 ## Repository Structure
