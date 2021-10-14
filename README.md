@@ -110,31 +110,33 @@ Limited to the most up to date bundles.
 
 ```bash
 .
-├── community-all (extends community-base)
+├── community1
 │   ├── bundle.yaml
-│   └── plugins.yaml
-├── community-base
-│   ├── bundle.yaml
+│   ├── jenkins
+│   │   ├── jenkins.yaml
+│   │   ├── podtemplate-golang.yaml
+│   │   ├── podtemplate-maven-jdk17.yaml
+│   │   └── shared-libraries.yaml
 │   ├── plugin-catalog.yaml
-│   ├── plugins.yaml
-│   └── system
-│       ├── jenkins.yaml
-│       ├── podtemplate-golang.yaml
-│       ├── podtemplate-maven-jdk17.yaml
-│       └── shared-libraries.yaml
-├── mc-purple (extends community all)
+│   └── plugins.yaml
+├── community2
 │   ├── bundle.yaml
-│   └── items
-│       └── pipeline-example.yaml
-├── mc1 (extends shared)
+│   ├── jenkins.yaml
+│   └── plugins.yaml
+├── mc1
 │   ├── bundle.yaml
 │   ├── items.yaml
 │   └── jenkins.yaml
-├── mc21 (extends mc1)
+├── mc21
 │   ├── bundle.yaml
 │   ├── jenkins.yaml
 │   ├── plugin-catalog.yaml
 │   └── plugins.yaml
+├── purple
+│   ├── bundle.yaml
+│   ├── items
+│   │   └── pipeline-example.yaml
+│   └── jenkins.yaml
 └── shared
     ├── bundle.yaml
     ├── jenkins
