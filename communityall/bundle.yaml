@@ -1,8 +1,10 @@
-id: "community_all"
+id: "git-bundle-community-all"
 apiVersion: "1"
 version: "3"
 description: "A bundle using all the community (tier 3) plugins that are allowed"
-parent: "community_base"
+parent: "communitybase"
 availabilityPattern: ".*"
+jcasc:
+  - "jenkins/"
 plugins:
   - "plugins.yaml"
