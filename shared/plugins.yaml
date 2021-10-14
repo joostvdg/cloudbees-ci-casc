@@ -1,0 +1,17 @@
+plugins:
+- {id: configuration-as-code}
+- {id: cloudbees-casc-api}
+- {id: workflow-job}
+- {id: workflow-multibranch}
+- {id: git}
+- {id: git-client}
+- {id: git-server}
+- {id: github}
+- {id: github-api}
+- {id: github-branch-source}
+- {id: github-organization-folder}
+- {id: pipeline-model-definition}
+- {id: workflow-cps-global-lib} 
+- {id: pipeline-graph-analysis} 
+- {id: pipeline-rest-api} 
+- {id: cloudbees-prometheus}

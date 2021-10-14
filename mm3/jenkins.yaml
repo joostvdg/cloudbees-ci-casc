@@ -1,0 +1,121 @@
+jenkins:
+  systemMessage: "Jenkins configured using CasC - mm3!"
+  numExecutors: 0
+  mode: NORMAL
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: admin
+         password: letme1n2
+       - id: newuser
+         password: newuser
+  myViewsTabBar: "standard"
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy:
+    pattern:
+      description: "My naming strategy"
+      forceExistingJobs: false
+      namePattern: ".*"
+kube:
+  podTemplatesConfiguration:
+    templates:
+    - containers:
+      - command: "cat"
+        image: "maven:3-jdk-11-slim"
+        livenessProbe:
+          failureThreshold: 0
+          initialDelaySeconds: 0
+          periodSeconds: 0
+          successThreshold: 0
+          timeoutSeconds: 0
+        name: "maven"
+        ttyEnabled: true
+        workingDir: "/home/jenkins/agent"
+      hostNetwork: false
+      label: "mavenjdk11"
+      name: "mavenjdk11"
+      nodeUsageMode: "NORMAL"
+      yamlMergeStrategy: "override"
+
+unclassified:
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      implicit: true
+      name: "jpl-podtemplates"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              remote: "https://github.com/joostvdg/jpl-podtemplates.git"
+              traits:
+              - cloneOptionTrait:
+                  extension:
+                    depth: 1
+                    noTags: true
+                    shallow: true
+    - defaultVersion: "master"
+      implicit: true
+      name: "jpl-core"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              remote: "https://github.com/joostvdg/jpl-core.git"
+              traits:
+              - cloneOptionTrait:
+                  extension:
+                    depth: 1
+                    noTags: true
+                    shallow: true
+    - defaultVersion: "master"
+      implicit: true
+      name: "jpl-maven"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              remote: "https://github.com/joostvdg/jpl-maven.git"
+              traits:
+              - cloneOptionTrait:
+                  extension:
+                    depth: 1
+                    noTags: true
+                    shallow: true
+  
+jobs:
+  - script: >
+      folder('testjobs')
+  - script: >
+      pipelineJob('testjobs/maven-agent') {
+        definition {
+          cps {
+            script("""\
+              pipeline {
+                agent { label 'mavenjdk11' } 
+                stages {
+                  stage ('SCM') {
+                    steps {
+                      git 'https://github.com/joostvdg/jx-maven-lib.git'
+                    }
+                  }
+                  stage ('Build') {
+                    steps {
+                      container('maven') {
+                        sh 'mvn verify --show-version --no-transfer-progress -errors --strict-checksums'
+                      }
+                    }
+                  }
+                }
+              }""".stripIndent()
+            )
+            sandbox()
+          }
+        }
+      }
