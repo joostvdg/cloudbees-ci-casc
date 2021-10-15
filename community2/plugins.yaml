@@ -8,4 +8,3 @@ plugins:
 - {id: manage-permission}
 - {id: extended-read-permission}
 - {id: pipeline-utility-steps}
-- {id: pipeline-graph-view}

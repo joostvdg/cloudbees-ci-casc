@@ -3,12 +3,12 @@ removeStrategy:
   items: NONE
 
 items:
-- concurrentBuild: true
-  kind: pipeline
-  displayName: parallel-sequential-test
-  resumeBlocked: false
+- kind: pipeline
   name: parallel-sequential-test
+  displayName: parallel-sequential-test
   description: 'Parallel Sequential Test (see: https://joostvdg.github.io/jenkins-pipeline/jenkins-parallel-pipeline/#sequential-with-optional-reusable-pods)'
+  resumeBlocked: false
+  concurrentBuild: true
   definition:
     cpsScmFlowDefinition:
       scriptPath: pipeline-examples/parallel-sequential.groovy
