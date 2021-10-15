@@ -165,3 +165,55 @@ plugins:
 catalog:
   - "plugin-catalog.yaml"
 ```
+
+## Community Bundles
+
+### Kubernetes Credentials Provider
+
+```sh
+2021-10-15 09:44:13.250+0000 [id=28] INFO c.c.j.p.k.KubernetesCredentialProvider#startWatchingForSecrets: retrieving secrets with selector: jenkins.io/credentials-type, LabelSelector(matchExpressions=[], matchLabels=null, additionalProperties={})
+2021-10-15 09:44:15.446+0000 [id=28] SEVERE c.c.j.p.k.KubernetesCredentialProvider#startWatchingForSecrets: Failed to initialise k8s secret provider, secrets from Kubernetes will not be available
+io.fabric8.kubernetes.client.KubernetesClientException: Failure executing: GET at: https://10.44.0.1/api/v1/namespaces/cbci/secrets?labelSelector=jenkins.io%2Fcredentials-type. Message: Forbidden!Configured service account doesn't have access. Service account may have been revoked. secrets is forbidden: User "system:serviceaccount:cbci:jenkins" cannot list resource "secrets" in API group "" in the namespace "cbci".
+ at io.fabric8.kubernetes.client.dsl.base.OperationSupport.requestFailure(OperationSupport.java:639)
+ at io.fabric8.kubernetes.client.dsl.base.OperationSupport.assertResponseCode(OperationSupport.java:576)
+ at io.fabric8.kubernetes.client.dsl.base.OperationSupport.handleResponse(OperationSupport.java:543)
+ at io.fabric8.kubernetes.client.dsl.base.OperationSupport.handleResponse(OperationSupport.java:504)
+ at io.fabric8.kubernetes.client.dsl.base.OperationSupport.handleResponse(OperationSupport.java:487)
+ at io.fabric8.kubernetes.client.dsl.base.BaseOperation.listRequestHelper(BaseOperation.java:163)
+ at io.fabric8.kubernetes.client.dsl.base.BaseOperation.list(BaseOperation.java:672)
+ at io.fabric8.kubernetes.client.dsl.base.BaseOperation.list(BaseOperation.java:86)
+ at com.cloudbees.jenkins.plugins.kubernetes_credentials_provider.KubernetesCredentialProvider.startWatchingForSecrets(KubernetesCredentialProvider.java:116)
+ ```
+
+ You need to patch the permissions of the `jenkins` service account.
+
+### Service Account Role for Permissions
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secrets-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
+```
+
+### Role Binding
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-secrets-jenkins
+subjects:
+# You can specify more than one "subject"
+- kind: ServiceAccount
+  name: jenkins # "name" is case sensitive
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: secret-reader # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+```
