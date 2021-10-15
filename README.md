@@ -108,6 +108,12 @@ Note: this only works if the Bundles are at the top level
 
 Limited to the most up to date bundles.
 
+### Community Bundles
+
+* Bundle `community1` sets up a basic configuration, including a Plugin Catalog listing common Tier 3 (Community) plugins
+* Bundle `community2` installs a chunk of these plugins, and sets a system message
+* Bubdle `purple` install an additional community plugin (also defined in the Plugin Catalog) and has Controllers specific items (jobs)
+
 ```bash
 .
 ├── community1
@@ -119,52 +125,46 @@ Limited to the most up to date bundles.
 │   │   └── shared-libraries.yaml
 │   ├── plugin-catalog.yaml
 │   └── plugins.yaml
-├── community2
+├── community2 (inherits community 1)
 │   ├── bundle.yaml
 │   ├── jenkins.yaml
 │   └── plugins.yaml
-├── mc1
+└── purple (inherits community 2)
+    ├── bundle.yaml
+    ├── items
+    │   └── pipeline-example.yaml
+    └── plugins.yaml
+```
+
+### Other Bundles
+
+Bundle `mc1` contains a minimal set of plugins.
+
+Bundle `mc21` includes a lot of CloudBees specific plugins (such as Cross Team Collaboration) and all the BlueOcean plugins.
+
+
+```bash
+.
+├── shared
+│   ├── bundle.yaml
+│   ├── jenkins
+│   │   ├── main.yaml
+│   │   ├── podtemplate-golang.yaml
+│   │   ├── podtemplate-maven-jdk17.yaml
+│   │   └── shared-libraries.yaml
+│   ├── plugin-catalog.yaml
+│   └── plugins.yaml
+├── mc1 (inherits shared)
 │   ├── bundle.yaml
 │   ├── items.yaml
 │   └── jenkins.yaml
-├── mc21
-│   ├── bundle.yaml
-│   ├── jenkins.yaml
-│   ├── plugin-catalog.yaml
-│   └── plugins.yaml
-├── purple
-│   ├── bundle.yaml
-│   ├── items
-│   │   └── pipeline-example.yaml
-│   └── jenkins.yaml
-└── shared
-    ├── bundle.yaml
-    ├── jenkins
-    │   ├── main.yaml
-    │   ├── podtemplate-golang.yaml
-    │   ├── podtemplate-maven-jdk17.yaml
-    │   └── shared-libraries.yaml
-    ├── plugin-catalog.yaml
-    └── plugins.yaml
+└── mc21 (inherits mc1)
+    ├── bundle.yaml
+    ├── jenkins.yaml
+    ├── plugin-catalog.yaml
+    └── plugins.yaml
 ```
 
-#### Bundle YAML Equivalent
-
-```yaml
-apiVersion: "1"
-version: "4"
-id: "shared"
-description: "Shared Bundle"
-availabilityPattern: ".*"
-jcasc:
-  - "jenkins/"
-plugins:
-  - "plugins.yaml"
-plugins:
-  - "plugins.yaml"
-catalog:
-  - "plugin-catalog.yaml"
-```
 
 ## Community Bundles
 
