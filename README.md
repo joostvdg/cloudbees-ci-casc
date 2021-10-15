@@ -214,6 +214,6 @@ subjects:
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole
   kind: Role #this must be Role or ClusterRole
-  name: secret-reader # this must match the name of the Role or ClusterRole you wish to bind to
+  name: secrets-reader # this must match the name of the Role or ClusterRole you wish to bind to
   apiGroup: rbac.authorization.k8s.io
 ```
