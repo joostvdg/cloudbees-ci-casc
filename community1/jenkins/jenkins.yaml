@@ -1,5 +1,4 @@
 jenkins:
-  systemMessage: "CloudBees CI configured using CasC - Community Base"
   agentProtocols:
   - "Diagnostic-Ping"
   - "JNLP4-connect"
