@@ -4,7 +4,10 @@ id: "shared"
 description: "Shared Bundle"
 availabilityPattern: ".*"
 jcasc:
-  - "jenkins/"
+  - "jenkins/main.yaml"
+  - "jenkins/podtemplate-golang.yaml"
+  - "jenkins/podtemplate-maven-jdk17.yaml"
+  - "jenkins/shared-libraries.yaml"    
 plugins:
   - "plugins.yaml"
 plugins:

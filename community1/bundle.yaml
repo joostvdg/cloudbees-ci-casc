@@ -1,9 +1,12 @@
 apiVersion: "1"
 version: "1.0"
 id: "community1"
-description: "Shared Bundle"
+description: "community 1 Bundle"
 jcasc:
   - "jenkins/jenkins.yaml"
+  - "jenkins/podtemplate-golang.yaml"
+  - "jenkins/podtemplate-maven-jdk17.yaml"
+  - "jenkins/shared-libraries.yaml"
 plugins:
   - "plugins.yaml"
 catalog:
