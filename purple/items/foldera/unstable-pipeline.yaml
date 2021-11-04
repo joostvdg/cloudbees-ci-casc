@@ -1,0 +1,22 @@
+concurrentBuild: true
+kind: pipeline
+displayName: Unstable Pipeline Example
+resumeBlocked: false
+name: unstable-pipeline
+description: ''
+definition:
+  cpsScmFlowDefinition:
+    scriptPath: pipeline-examples/unstable.groovy
+    scm:
+      gitSCM:
+        userRemoteConfigs:
+        - userRemoteConfig:
+            url: https://github.com/joostvdg/jenkins-examples.git
+        branches:
+        - branchSpec:
+            name: '*/master'
+    lightweight: true
+disabled: false
+properties:
+- jobLocalConfiguration:
+    changeReasonComment: ''

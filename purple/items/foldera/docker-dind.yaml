@@ -1,0 +1,16 @@
+kind: pipeline
+displayName: Docker DIND Example
+name: docker-dind-pipeline
+definition:
+  cpsScmFlowDefinition:
+    scriptPath: pipeline-examples/pipeline-dind-with-podtemplate.groovy
+    scm:
+      gitSCM:
+        userRemoteConfigs:
+        - userRemoteConfig:
+            url: https://github.com/joostvdg/jenkins-examples.git
+        branches:
+        - branchSpec:
+            name: '*/master'
+    lightweight: true
+
