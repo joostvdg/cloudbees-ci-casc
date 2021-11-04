@@ -47,7 +47,7 @@ jenkins:
         groupSearchBase: "ou=Groups"
         inhibitInferRootDN: false
         managerDN: "cn=admin,dc=example,dc=org"
-        managerPasswordSecret: NotARealPasswordObviously
+        managerPasswordSecret: ${LDAP_MANAGER_PASSWORD}
         rootDN: "dc=example,dc=org"
         server: "ldap://ldap-openldap:389"
         userSearchBase: "ou=People"
