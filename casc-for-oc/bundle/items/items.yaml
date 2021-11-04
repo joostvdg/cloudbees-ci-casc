@@ -1,0 +1,15 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: folder
+  name: casc
+  description: ''
+- kind: folder
+  name: myfolder
+  description: ''
+- kind: folder
+  name: myotherfolder
+  description: ''
+- kind: folder
+  name: Teams  

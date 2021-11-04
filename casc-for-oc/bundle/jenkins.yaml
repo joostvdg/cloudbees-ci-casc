@@ -1,0 +1,170 @@
+jenkins:
+  agentProtocols:
+  - "Diagnostic-Ping"
+  - "JNLP4-connect"
+  - "OperationsCenter2"
+  - "Ping"
+  authorizationStrategy: "cloudBeesRoleBasedAccessControl"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: true
+  disableRememberMe: true
+  labelAtoms:
+  - name: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    masters:
+      columns:
+      - "jobName"
+      - "status"
+      - "weather"
+      - "masterConfigurationStaleViewColumn"
+      - "jenkinsVersionViewColumn"
+      - "cascViewColumn"
+      - "manageMaster"
+      - "totalJobsViewColumn"
+      - "queueSizeViewColumn"
+      - "listSelectionColumn"
+      jobFilters:
+      - "connectedMasterViewFilter"
+      name: "Controllers"
+      recurse: true
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    ldap:
+      configurations:
+      - displayNameAttributeName: "cn"
+        groupMembershipStrategy:
+          fromGroupSearch:
+            filter: "member={0}"
+        groupSearchBase: "ou=Groups"
+        inhibitInferRootDN: false
+        managerDN: "cn=admin,dc=example,dc=org"
+        managerPasswordSecret: NotARealPasswordObviously
+        rootDN: "dc=example,dc=org"
+        server: "ldap://ldap-openldap:389"
+        userSearchBase: "ou=People"
+      disableMailAddressResolver: false
+      groupIdStrategy: "caseInsensitive"
+      userIdStrategy: "caseInsensitive"        
+  slaveAgentPort: 50000
+  views:
+  - masters:
+      columns:
+      - "jobName"
+      - "status"
+      - "weather"
+      - "masterConfigurationStaleViewColumn"
+      - "jenkinsVersionViewColumn"
+      - "cascViewColumn"
+      - "manageMaster"
+      - "totalJobsViewColumn"
+      - "queueSizeViewColumn"
+      - "listSelectionColumn"
+      jobFilters:
+      - "connectedMasterViewFilter"
+      name: "Controllers"
+      recurse: true 
+  - all:
+      name: "all"  
+  viewsTabBar: "standard"          
+cloudBeesCasCServer:
+  defaultBundle: "mc1"
+  visibility: true
+beekeeper:
+  enabled: true
+  securityWarnings:
+    enabledForCore: true
+    enabledForPlugins: true
+  upgrades:
+    autoDowngradePlugins: false
+    autoUpgradePlugins: true
+notificationConfiguration:
+  enabled: false
+
+masterprovisioning:
+  dockerImageDefinitionConfiguration:
+    images:
+    - imageTag: "cloudbees/cloudbees-core-mm:2.303.3.3"
+      name: "CloudBees CI - Managed Master - 2.303.3.3"
+    - imageTag: "cloudbees/cloudbees-core-mm:2.303.2.5"
+      name: "CloudBees CI - Managed Master - 2.303.2.5"
+    - imageTag: "cloudbees/cloudbees-core-mm:2.303.2.3"
+      name: "CloudBees CI - Managed Master - 2.303.2.3"
+    - imageTag: "cloudbees/cloudbees-core-mm:2.303.1.6"
+      name: "CloudBees CI - Managed Master - 2.303.1.6"
+    - imageTag: "cloudbees/cloudbees-core-mm:2.289.3.2"
+      name: "CloudBees CI - Managed Master - 2.289.3.2" 
+  kubernetes:
+    clusterEndpoints:
+    - id: "default"
+      ingressClass: "nginx"
+      jenkinsUrl: "http://cjoc.cbci.svc.cluster.local/cjoc/"
+      name: "kubernetes"
+    cpus: "1.0"
+    disk: 50
+    fsGroup: "1000"
+    globalJavaOptions: "-Djenkins.model.Jenkins.crumbIssuerProxyCompatibility=true\
+      \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.303.2.5\
+      \ -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents\
+      \ -Dcom.cloudbees.networking.useSubdomain=false -Dcom.cloudbees.networking.protocol=\"\
+      https\" -Dcom.cloudbees.networking.hostname=\"ci.pmgke.kearos.net\" -Dcom.cloudbees.networking.port=443\
+      \ -Dcom.cloudbees.networking.operationsCenterName=\"cjoc\""
+    javaOptions: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+DisableExplicitGC\
+      \ -XX:+ParallelRefProcEnabled -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0"
+    livenessInitialDelaySeconds: 300
+    livenessPeriodSeconds: 12
+    livenessTimeoutSeconds: 12
+    memory: 3072
+    readinessFailureThreshold: 100
+    readinessInitialDelaySeconds: 30
+    readinessTimeoutSeconds: 5
+    terminationGracePeriodSeconds: 1200
+    yaml: |-
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      spec:
+        template:
+          metadata:
+            annotations:
+              prometheus.io/path: /${name}/prometheus
+              prometheus.io/port: "8080"
+              prometheus.io/scrape: "true"
+            labels:
+              app.kubernetes.io/component: Managed-Master
+              app.kubernetes.io/instance: ${name}
+              app.kubernetes.io/managed-by: CloudBees-Core-Cloud-Operations-Center
+              app.kubernetes.io/name: ${name}        
+security:
+  anonymizeSupportBundle:
+    enabled: false
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
+  securitySettingsEnforcement:
+    global:
+      realmAndAuthorization:
+        canCustomMapping: false
+        canOverride: false
+        defaultMappingFactory: "restrictedEquivalentRAMF"
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  cloudbeesPrometheus:
+    collectingMetricsPeriodInSeconds: 30
+    defaultNamespace: "cb_ci"
+    path: "prometheus"
+    useAuthenticatedEndpoint: false
+  experimentalPlugins:
+    enabled: false

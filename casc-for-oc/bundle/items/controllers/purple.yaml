@@ -1,0 +1,29 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: managedController
+  displayName: 'Purple'
+  name: mc-purple
+  description: 'Purple Controller (Managed)'
+  groups:
+  - members:
+      users:
+      - greendev
+      - greenadmin
+    name: Greens
+  properties:
+  - configurationAsCode:
+      bundle: purple
+  - healthReporting:
+      enabled: true
+  - licensing:
+      strategy:
+        perUserLicensingStrategy: {}
+  configuration:
+    kubernetes:
+      memory: 3072
+      cpus: 1.0
+      disk: 50
+      domain: purple
+      yaml: ''

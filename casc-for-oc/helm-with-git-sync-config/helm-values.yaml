@@ -1,0 +1,61 @@
+OperationsCenter:
+  HostName: ci.example.com
+  CSRF:
+    ProxyCompatibility: true
+  Annotations:
+    prometheus.io/path: "/prometheus"
+    prometheus.io/port: "8080"
+    prometheus.io/scrape: "true"
+  Ingress:
+    Annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      kubernetes.io/tls-acme: 'true'
+      kubernetes.io/ingress.class: nginx
+    tls:
+      Enable: true
+      Host: ci.example.com
+      SecretName: tls-ci-example-com
+  JavaOpts:
+    -Djenkins.install.runSetupWizard=false
+    -Dcore.casc.config.bundle=/var/jenkins_config/oc-casc-bundle-from-git/cloudbees-ci-casc/casc-for-oc/bundle
+  ExtraContainers:
+  - name: git-sync
+    # https://github.com/kubernetes/git-sync/blob/master/docs/kubernetes.md
+    # This container pulls git data and publishes it into volume
+    # "content-from-git".  In that volume you will find a symlink
+    # "current" (see -dest below) which points to a checked-out copy of
+    # the master branch (see -branch) of the repo (see -repo).
+    # NOTE: git-sync already runs as non-root.
+    ## gcr.io/k8s-staging-git-sync/git-sync:v3.3.4__linux_amd64
+    ## gcr.io/k8s-staging-git-sync/git-sync@sha256:866599ca98bcde1404b56152d8601888a5d3dae7fc21665155577d607652aa09
+    image: gcr.io/k8s-staging-git-sync/git-sync@sha256:866599ca98bcde1404b56152d8601888a5d3dae7fc21665155577d607652aa09
+    args:
+      - --repo=https://github.com/joostvdg/cloudbees-ci-casc
+      - --branch=main
+      - --depth=1
+      - --wait=20
+      - --root=/git
+    volumeMounts:
+      - name: content-from-git
+        mountPath: /git
+  ExtraVolumes:
+  - name: casc-oc-volume
+    configMap:
+      name: casc-oc
+  ExtraVolumeMounts:
+  - name: casc-oc-volume
+    mountPath: /var/jenkins_config/oc-casc-bundle
+    readOnly: true
+  - name: content-from-git
+    mountPath: /var/jenkins_config/oc-casc-bundle-from-git
+    readOnly: true
+
+Agents:
+  Enabled: true
+  SeparateNamespace:
+    Enabled: true
+    Name: ci-agents
+    Create: true
+
+Hibernation:
+  Enabled: true

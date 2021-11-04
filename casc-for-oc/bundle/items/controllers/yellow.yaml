@@ -1,0 +1,29 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: managedController
+  displayName: 'Yellow'
+  name: mc-yellow
+  description: 'Yellow Controller (Managed)'
+  groups:
+  - members:
+      users:
+      - bluedev
+      - blueadmin
+    name: Blues
+  properties:
+  - configurationAsCode:
+      bundle: purple
+  - healthReporting:
+      enabled: true
+  - licensing:
+      strategy:
+        perUserLicensingStrategy: {}
+  configuration:
+    kubernetes:
+      memory: 3072
+      cpus: 1.0
+      disk: 50
+      domain: yellow
+      yaml: ''

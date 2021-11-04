@@ -1,0 +1,29 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+items:
+- kind: managedController
+  displayName: 'Blue'
+  name: mc-blue
+  description: 'Blue Controller (Managed)'
+  groups:
+  - members:
+      users:
+      - bluedev
+      - blueadmin
+    name: Blues
+  properties:
+  - configurationAsCode:
+      bundle: mc21
+  - healthReporting:
+      enabled: true
+  - licensing:
+      strategy:
+        perUserLicensingStrategy: {}
+  configuration:
+    kubernetes:
+      memory: 3072
+      cpus: 1.0
+      disk: 50
+      domain: blue
+      yaml: ''
