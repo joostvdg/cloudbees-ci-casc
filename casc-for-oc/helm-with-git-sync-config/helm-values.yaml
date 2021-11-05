@@ -18,6 +18,12 @@ OperationsCenter:
   JavaOpts:
     -Djenkins.install.runSetupWizard=false
     -Dcore.casc.config.bundle=/var/jenkins_config/oc-casc-bundle-from-git/cloudbees-ci-casc/casc-for-oc/bundle
+  ContainerEnv:
+    - name: LDAP_MANAGER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: ldap-manager-pass
+          key: pass
   ExtraContainers:
   - name: git-sync
     # https://github.com/kubernetes/git-sync/blob/master/docs/kubernetes.md
