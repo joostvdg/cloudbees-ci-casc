@@ -112,7 +112,7 @@ masterprovisioning:
     disk: 50
     fsGroup: "1000"
     globalJavaOptions: "-Djenkins.model.Jenkins.crumbIssuerProxyCompatibility=true\
-      \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.303.2.5\
+      \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.303.3.3\
       \ -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents\
       \ -Dcom.cloudbees.networking.useSubdomain=false -Dcom.cloudbees.networking.protocol=\"\
       https\" -Dcom.cloudbees.networking.hostname=\"ci.pmgke.kearos.net\" -Dcom.cloudbees.networking.port=443\
