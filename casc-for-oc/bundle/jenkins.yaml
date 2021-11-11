@@ -141,7 +141,7 @@ masterprovisioning:
               app.kubernetes.io/component: Managed-Master
               app.kubernetes.io/instance: "^${name}"
               app.kubernetes.io/managed-by: CloudBees-CI-Cloud-Operations-Center
-              app.kubernetes.io/name: "^${name}""
+              app.kubernetes.io/name: "^${name}"
 security:
   anonymizeSupportBundle:
     enabled: false
