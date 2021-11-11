@@ -108,40 +108,40 @@ masterprovisioning:
       ingressClass: "nginx"
       jenkinsUrl: "http://cjoc.cbci.svc.cluster.local/cjoc/"
       name: "kubernetes"
-      cpus: "1.0"
-      disk: 50
-      fsGroup: "1000"
-      globalJavaOptions: "-Djenkins.model.Jenkins.crumbIssuerProxyCompatibility=true\
-        \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.303.2.5\
-        \ -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents\
-        \ -Dcom.cloudbees.networking.useSubdomain=false -Dcom.cloudbees.networking.protocol=\"\
-        https\" -Dcom.cloudbees.networking.hostname=\"ci.pmgke.kearos.net\" -Dcom.cloudbees.networking.port=443\
-        \ -Dcom.cloudbees.networking.operationsCenterName=\"cjoc\""
-      javaOptions: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+DisableExplicitGC\
-        \ -XX:+ParallelRefProcEnabled -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0"
-      livenessInitialDelaySeconds: 300
-      livenessPeriodSeconds: 12
-      livenessTimeoutSeconds: 12
-      memory: 3072
-      readinessFailureThreshold: 100
-      readinessInitialDelaySeconds: 30
-      readinessTimeoutSeconds: 5
-      terminationGracePeriodSeconds: 1200
-      yaml: |-
-        apiVersion: "apps/v1"
-        kind: "StatefulSet"
-        spec:
-          template:
-            metadata:
-              annotations:
-                prometheus.io/path: /\${name}/prometheus
-                prometheus.io/port: "8080"
-                prometheus.io/scrape: "true"
-              labels:
-                app.kubernetes.io/component: Managed-Master
-                app.kubernetes.io/instance: \${name}
-                app.kubernetes.io/managed-by: CloudBees-Core-Cloud-Operations-Center
-                app.kubernetes.io/name: \${name} 
+    cpus: "1.0"
+    disk: 50
+    fsGroup: "1000"
+    globalJavaOptions: "-Djenkins.model.Jenkins.crumbIssuerProxyCompatibility=true\
+      \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.303.2.5\
+      \ -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents\
+      \ -Dcom.cloudbees.networking.useSubdomain=false -Dcom.cloudbees.networking.protocol=\"\
+      https\" -Dcom.cloudbees.networking.hostname=\"ci.pmgke.kearos.net\" -Dcom.cloudbees.networking.port=443\
+      \ -Dcom.cloudbees.networking.operationsCenterName=\"cjoc\""
+    javaOptions: "-XshowSettings:vm -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:+DisableExplicitGC\
+      \ -XX:+ParallelRefProcEnabled -XX:+UseStringDeduplication -Dhudson.slaves.NodeProvisioner.initialDelay=0"
+    livenessInitialDelaySeconds: 300
+    livenessPeriodSeconds: 12
+    livenessTimeoutSeconds: 12
+    memory: 3072
+    readinessFailureThreshold: 100
+    readinessInitialDelaySeconds: 30
+    readinessTimeoutSeconds: 5
+    terminationGracePeriodSeconds: 1200
+    yaml: |-
+      apiVersion: "apps/v1"
+      kind: "StatefulSet"
+      spec:
+        template:
+          metadata:
+            annotations:
+              prometheus.io/path: /\${name}/prometheus
+              prometheus.io/port: "8080"
+              prometheus.io/scrape: "true"
+            labels:
+              app.kubernetes.io/component: Managed-Master
+              app.kubernetes.io/instance: \${name}
+              app.kubernetes.io/managed-by: CloudBees-Core-Cloud-Operations-Center
+              app.kubernetes.io/name: \${name} 
 security:
   anonymizeSupportBundle:
     enabled: false
