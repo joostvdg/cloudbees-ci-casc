@@ -18,8 +18,4 @@ items:
       bundle: purple
   configuration:
     kubernetes:
-      memory: 4096
-      cpus: 0.5
-      disk: 30
       domain: cyan
-      yaml: ''
