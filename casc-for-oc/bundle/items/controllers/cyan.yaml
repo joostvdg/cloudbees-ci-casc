@@ -1,0 +1,25 @@
+removeStrategy:
+  rbac: SYNC
+  items: NONE
+
+items:
+- kind: managedController
+  displayName: 'Cyan'
+  name: mc-cyan
+  description: 'Cyan Controller (Managed by CasC)'
+  groups:
+  - members:
+      users:
+      - bluedev
+      - blueadmin
+    name: Blues
+  properties:
+  - configurationAsCode:
+      bundle: purple
+  configuration:
+    kubernetes:
+      memory: 4096
+      cpus: 0.5
+      disk: 30
+      domain: cyan
+      yaml: ''
