@@ -1,0 +1,172 @@
+{{- $ldapGlobalPassword := .Values.ldapGlobalPassword -}}
+{{- $ldapUser1Password := .Values.ldapUser1Password -}}
+{{- $ldapUser2Password := .Values.ldapUser2Password -}}
+{{- $ldapUser3Password := .Values.ldapUser3Password -}}
+customLdifFiles:
+  main.ldif: |
+    # define people and groups as category
+    dn: ou=People, dc=example,dc=org
+    objectclass: top
+    objectclass: organizationalunit
+    
+    ou: People
+    dn: ou=Groups, dc=example,dc=org
+    objectclass: top
+    objectclass: organizationalunit
+    ou: Groups
+
+    # add Administrator group and add me and admin as members
+    dn: cn=Administrators, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Administrators
+    ou: Groups
+    member: uid=admin,ou=People, dc=example,dc=org
+    member: uid=jvandergriendt,ou=People, dc=example,dc=org
+    member: uid=rye,ou=People, dc=example,dc=org
+
+    dn: cn=Blue, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Blue
+    ou: Groups
+    member: uid=blueadmin,ou=People, dc=example,dc=org
+    member: uid=bluedev,ou=People, dc=example,dc=org
+
+    dn: cn=BlueAdmins, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: BlueAdmins
+    ou: Groups
+    member: uid=blueadmin,ou=People, dc=example,dc=org
+
+    dn: cn=Green, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Green
+    ou: Groups
+    member: uid=greenadmin,ou=People, dc=example,dc=org
+    member: uid=greendev,ou=People, dc=example,dc=org
+
+    dn: cn=GreenAdmins, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: GreenAdmins
+    ou: Groups
+    member: uid=greenadmin,ou=People, dc=example,dc=org
+
+    dn: cn=Developers, ou=Groups,dc=example,dc=org
+    objectclass: top
+    objectclass: groupOfNames
+    cn: Developers
+    ou: Groups
+    member: uid=bluedev,ou=People, dc=example,dc=org
+    member: uid=greendev,ou=People, dc=example,dc=org
+
+    # add specific people (users)
+    dn: uid=jvandergriendt, ou=People, dc=example,dc=org
+    uid: jvandergriendt
+    cn: Joost
+    sn: jvandergriendt
+    givenname: Joost van der Griendt
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: jvandergriendt@cloudbees.com
+    userpassword: {{ $ldapUser1Password }}
+
+    dn: uid=rye, ou=People, dc=example,dc=org
+    uid: rye
+    cn: rye
+    sn: rye
+    givenname: Runxia Ye
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: rye@cloudbees.com
+    userpassword: {{ $ldapUser2Password }}
+
+    dn: uid=jleon, ou=People, dc=example,dc=org
+    uid: jleon
+    cn: jleon
+    sn: jleon
+    givenname: Jake Leon
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: jleon@cloudbees.com
+    userpassword: {{ $ldapUser3Password }}
+
+    dn: uid=blueadmin, ou=People, dc=example,dc=org
+    uid: blueadmin
+    cn: blueadmin
+    sn: blueadmin
+    givenname: Blue Admin
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: blueadmin@example.org
+    userpassword: {{ $ldapGlobalPassword }}
+
+    dn: uid=bluedev, ou=People, dc=example,dc=org
+    uid: bluedev
+    cn: bluedev
+    sn: bluedev
+    givenname: Blue Dev
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: bluedev@example.org
+    userpassword: {{ $ldapGlobalPassword }}
+
+    # add specific people (users)
+    dn: uid=greenadmin, ou=People, dc=example,dc=org
+    uid: greenadmin
+    cn: greenadmin
+    sn: greenadmin
+    givenname: Green Admin
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: greenadmin@example.org
+    userpassword: {{ $ldapGlobalPassword }}
+
+    dn: uid=greendev, ou=People, dc=example,dc=org
+    uid: greendev
+    cn: greendev
+    sn: greendev
+    givenname: Green Dev
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    mail: greendev@example.org
+    userpassword: {{ $ldapGlobalPassword }}
+
+    dn: uid=admin, ou=People, dc=example,dc=org
+    cn: admin
+    sn: admin
+    givenname: admin
+    objectclass: top
+    objectclass: person
+    objectclass: organizationalPerson
+    objectclass: inetOrgPerson
+    ou: People
+    uid: admin
+    mail: admin@example.org
+    userpassword: {{ $ldapGlobalPassword }}
+adminPassword: {{ $ldapGlobalPassword }}
+configPassword: {{ $ldapGlobalPassword }}

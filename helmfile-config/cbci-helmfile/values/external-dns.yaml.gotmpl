@@ -1,0 +1,10 @@
+provider: google
+replicas: 3
+domainFilters: 
+  - "{{ .Values.grafanaHost }}"
+  - "{{ .Values.cbciHostname  }}"
+metrics:
+  enabled: true
+google:
+  project: {{ .Values.googleProject }}
+  serviceAccountSecret: {{ .Values.googleASSecret }}

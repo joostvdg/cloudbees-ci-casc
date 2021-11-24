@@ -1,0 +1,67 @@
+ingress:
+  enabled: true
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: 'true'
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - {{ .Values.grafanaHost }}
+  tls: 
+    - secretName: my-grafana-tls-secret
+      hosts:
+        - {{ .Values.grafanaHost }}
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 8Gi        
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server
+      access: proxy
+      isDefault: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'Default'
+      orgId: 1
+      folder: 'default'
+      type: file
+      disableDeletion: true
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    Costs-Pod:
+      gnetId: 6879
+      revision: 1
+      datasource: Prometheus
+    Costs:
+      gnetId: 8670
+      revision: 1
+      datasource: Prometheus
+    Summary:
+      gnetId: 8685
+      revision: 1
+      datasource: Prometheus
+    Capacity:
+      gnetId: 5228
+      revision: 6
+      datasource: Prometheus
+    Deployments:
+      gnetId: 8588
+      revision: 1
+      datasource: Prometheus
+    Volumes:
+      gnetId: 6739
+      revision: 1
+      datasource: Prometheus

@@ -1,0 +1,94 @@
+environments:
+  default:
+    values:
+    - helmfile-values.yaml
+
+repositories:
+- name: stable
+  url: https://charts.helm.sh/stable
+- name: cloudbees
+  url: https://charts.cloudbees.com/public/cloudbees
+- name: jetstack
+  url: https://charts.jetstack.io
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+- name: geek-cookbook
+  url: https://geek-cookbook.github.io/charts/
+- name: grafana
+  url: https://grafana.github.io/helm-charts  
+- name: prometheus-community
+  url: https://prometheus-community.github.io/helm-charts
+
+helmDefaults:
+  wait: true
+  timeout: 600
+  historyMax: 25
+  createNamespace: true  
+
+releases:
+- name: cbci
+  namespace: cbci
+  chart: cloudbees/cloudbees-core 
+  version: 3.37.2+7390bf58e3ab 
+  values:
+  - values/cbci.yaml.gotmpl
+  needs:
+  - nginx-ingress
+  - external-dns
+  - cert-manager
+  - ldap
+
+- name: nginx-ingress
+  namespace: nginx-ingress
+  chart: bitnami/nginx-ingress-controller
+  version: 7.6.21
+  values:
+  - values/nginx-ingress.yaml.gotmpl
+
+- name: external-dns
+  namespace: nginx-ingress
+  chart: bitnami/external-dns
+  version: 5.4.8
+  values:
+  - values/external-dns.yaml.gotmpl
+
+- name: cert-manager
+  namespace: cert-manager
+  chart: jetstack/cert-manager
+  version: 1.5.3
+  values:
+  - values/cert-manager.yaml.gotmpl
+  needs:
+  - nginx-ingress
+
+- name: cm-cluster-issuer
+  namespace: cert-manager
+  chart: incubator/raw
+  values:
+  - values/cluster-issuer.yaml.gotmpl
+  needs:
+  - cbci
+  - cert-manager
+
+- name: ldap
+  namespace: cbci
+  chart: geek-cookbook/openldap
+  version: 1.2.4
+  values:
+  - values/ldap.yaml.gotmpl
+
+- name: prometheus
+  namespace: mon
+  chart: prometheus-community/prometheus
+  version: 14.8.1
+  values:
+  - values/prom.yaml.gotmpl
+
+- name: grafana
+  namespace: mon
+  chart: grafana/grafana
+  version: 6.16.11
+  values:
+  - values/grafana.yaml.gotmpl
+  needs:
+  - prometheus
