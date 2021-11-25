@@ -42,8 +42,6 @@ groups:
     users:
       - admin
       - jvandergriendt
-      - rye
-      - jleon
   roles:
   - name: administer
     grantedAt: current
