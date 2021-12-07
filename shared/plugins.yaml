@@ -1,6 +1,6 @@
 plugins:
 - {id: configuration-as-code}
-- {id: cloudbees-casc-api}
+- {id: cloudbees-casc-items-controller}
 - {id: workflow-job}
 - {id: workflow-multibranch}
 - {id: workflow-cps-global-lib} 
