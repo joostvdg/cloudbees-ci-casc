@@ -92,6 +92,8 @@ notificationConfiguration:
 masterprovisioning:
   dockerImageDefinitionConfiguration:
     images:
+    - imageTag: "cloudbees/cloudbees-core-mm:2.319.1.5"
+      name: "CloudBees CI - Managed Master - 2.319.1.5"    
     - imageTag: "cloudbees/cloudbees-core-mm:2.303.3.3"
       name: "CloudBees CI - Managed Master - 2.303.3.3"
     - imageTag: "cloudbees/cloudbees-core-mm:2.303.2.5"
@@ -112,7 +114,7 @@ masterprovisioning:
     disk: 30
     fsGroup: "1000"
     globalJavaOptions: "-Djenkins.model.Jenkins.crumbIssuerProxyCompatibility=true\
-      \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.303.3.3\
+      \ -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=cloudbees/cloudbees-core-agent:2.319.1.5\
       \ -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents\
       \ -Dcom.cloudbees.networking.useSubdomain=false -Dcom.cloudbees.networking.protocol=\"\
       https\" -Dcom.cloudbees.networking.hostname=\"ci.cbci-pm.beescloud.com\" -Dcom.cloudbees.networking.port=443\
